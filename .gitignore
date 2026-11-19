@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDEs & Editors
+.vs/
+*.suo
+*.user
+*.slnx
+*.sqlite
+*.db
+*.db-shm
+*.db-wal
+
+# Pytest
+.pytest_cache/

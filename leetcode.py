@@ -12,17 +12,15 @@ for i in nums:
 print(runningSum)
 
 #Richest Customer Wealth
-accounts = [[2,8], [5,5], [1,20]]
+accounts = [[2, 8], [5, 5], [1, 20]]
 
 accounts_total = []
-customer_total = 0
-
-for i in accounts:
-    customer_total += sum(i) 
-
-    accounts_total.append(accounts_total)
+for account in accounts:
+    customer_total = sum(account)
+    accounts_total.append(customer_total)
 
 print(accounts_total)
+print("Max customer wealth:", max(accounts_total))
 
 
 #Counter
