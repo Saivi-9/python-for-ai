@@ -5,14 +5,16 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 
-from helpers import calculate_total, format_currency
+from helpers import calculate_total, format_currency, summarize_sales_records
 from leetcode import (
     analyze_student_grades,
     filter_negative_numbers,
     find_largest_without_max,
     max_customer_wealth,
+    min_max_normalize,
     multiply,
     running_sum_1d,
+    two_sum_indices,
 )
 
 
@@ -43,3 +45,20 @@ def test_leetcode_algorithms():
     assert summary["totals"] == [253, 200, 274, 225]
     assert summary["best_student"] == 3
     assert summary["highest_total"] == 274
+
+    assert min_max_normalize([10.0, 20.0, 30.0]) == [0.0, 0.5, 1.0]
+    assert min_max_normalize([5.0, 5.0]) == [0.0, 0.0]
+    assert two_sum_indices([2, 7, 11, 15], 9) == [0, 1]
+
+
+def test_summarize_sales_records():
+    records = [
+        {"product": "Laptop", "quantity": 2, "price": 1200.0},
+        {"product": "Mouse", "quantity": 5, "price": 25.0},
+    ]
+    summary = summarize_sales_records(records)
+    assert summary["grand_total"] == 2525.0
+    assert summary["total_units"] == 7
+    assert summary["average_order_value"] == 1262.5
+    assert summary["top_product"] == "Laptop"
+

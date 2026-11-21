@@ -71,6 +71,30 @@ def multiply(a: int, b: int) -> int:
     return product
 
 
+def min_max_normalize(values: List[float]) -> List[float]:
+    """Scale numeric feature values into the [0.0, 1.0] range for AI/ML preprocessing."""
+    if not values:
+        return []
+    lo = min(values)
+    hi = max(values)
+    if hi == lo:
+        return [0.0 for _ in values]
+    span = hi - lo
+    return [round((v - lo) / span, 4) for v in values]
+
+
+def two_sum_indices(nums: List[int], target: int) -> List[int]:
+    """Return 0-based indices of two numbers in nums that add up to target in O(n) time."""
+    seen: Dict[int, int] = {}
+    for idx, val in enumerate(nums):
+        complement = target - val
+        if complement in seen:
+            return [seen[complement], idx]
+        seen[val] = idx
+    return []
+
+
+
 if __name__ == "__main__":
     nums = [1, 4, 6, 8, 11, 16]
     print(sum(nums))
