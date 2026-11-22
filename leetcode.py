@@ -1,4 +1,5 @@
 from typing import Dict, List
+import math
 
 
 def running_sum_1d(nums: List[int]) -> List[int]:
@@ -92,6 +93,46 @@ def two_sum_indices(nums: List[int], target: int) -> List[int]:
             return [seen[complement], idx]
         seen[val] = idx
     return []
+
+
+def z_score_standardize(values: List[float]) -> List[float]:
+    """Standardize numeric features to zero mean and unit population variance."""
+    if not values:
+        return []
+    mean_val = sum(values) / len(values)
+    variance = sum((v - mean_val) ** 2 for v in values) / len(values)
+    std_val = math.sqrt(variance)
+    if std_val == 0.0:
+        return [0.0 for _ in values]
+    return [round((v - mean_val) / std_val, 4) for v in values]
+
+
+def cosine_similarity_1d(vec_a: List[float], vec_b: List[float]) -> float:
+    """Compute cosine similarity between two equal-length 1D embedding vectors."""
+    if len(vec_a) != len(vec_b) or not vec_a:
+        raise ValueError("Vectors must be non-empty and of equal length")
+    dot = sum(a * b for a, b in zip(vec_a, vec_b))
+    norm_a = math.sqrt(sum(a * a for a in vec_a))
+    norm_b = math.sqrt(sum(b * b for b in vec_b))
+    if norm_a == 0.0 or norm_b == 0.0:
+        return 0.0
+    return round(dot / (norm_a * norm_b), 4)
+
+
+def moving_average(values: List[float], window: int) -> List[float]:
+    """Compute simple sliding-window moving averages over a 1D numeric series."""
+    if window <= 0:
+        raise ValueError("window must be positive")
+    if not values or window > len(values):
+        return []
+    out: List[float] = []
+    window_sum = sum(values[:window])
+    out.append(round(window_sum / window, 4))
+    for i in range(window, len(values)):
+        window_sum += values[i] - values[i - window]
+        out.append(round(window_sum / window, 4))
+    return out
+
 
 
 

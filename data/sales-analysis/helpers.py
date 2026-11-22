@@ -14,6 +14,16 @@ def format_currency(amount: Union[int, float]) -> str:
     return f"${amount:,.2f}"
 
 
+def apply_discount(amount: Union[int, float], discount_pct: float) -> float:
+    """Apply a percentage discount in [0.0, 100.0] to a non-negative amount."""
+    if amount < 0:
+        raise ValueError("amount must be non-negative")
+    if discount_pct < 0.0 or discount_pct > 100.0:
+        raise ValueError("discount_pct must be between 0.0 and 100.0")
+    return round(float(amount) * (1.0 - discount_pct / 100.0), 2)
+
+
+
 def summarize_sales_records(records: List[Dict[str, Union[int, float, str]]]) -> Dict[str, object]:
     """Aggregate grand total, total units, average order value, and top product by revenue."""
     if not records:
@@ -45,3 +55,20 @@ def summarize_sales_records(records: List[Dict[str, Union[int, float, str]]]) ->
         "average_order_value": round(grand_total / len(records), 2),
         "top_product": best_product,
     }
+
+
+def apply_bulk_discount(
+    total: Union[int, float],
+    quantity: int,
+    threshold_qty: int = 10,
+    discount_pct: float = 10.0,
+) -> float:
+    """Apply a percentage discount when order quantity meets or exceeds threshold_qty."""
+    if total < 0 or quantity < 0:
+        raise ValueError("total and quantity must be non-negative")
+    if not (0.0 <= discount_pct <= 100.0):
+        raise ValueError("discount_pct must be between 0 and 100")
+    if quantity >= threshold_qty:
+        return round(float(total) * (1.0 - discount_pct / 100.0), 2)
+    return round(float(total), 2)
+
