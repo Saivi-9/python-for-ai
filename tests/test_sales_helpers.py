@@ -5,16 +5,19 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 
-from helpers import calculate_total, format_currency, summarize_sales_records
+from helpers import apply_bulk_discount, apply_discount, calculate_total, format_currency, summarize_sales_records
 from leetcode import (
     analyze_student_grades,
+    cosine_similarity_1d,
     filter_negative_numbers,
     find_largest_without_max,
     max_customer_wealth,
     min_max_normalize,
+    moving_average,
     multiply,
     running_sum_1d,
     two_sum_indices,
+    z_score_standardize,
 )
 
 
@@ -61,4 +64,19 @@ def test_summarize_sales_records():
     assert summary["total_units"] == 7
     assert summary["average_order_value"] == 1262.5
     assert summary["top_product"] == "Laptop"
+    assert apply_discount(200.0, 15.0) == 170.0
+    assert z_score_standardize([10.0, 20.0, 30.0]) == [-1.2247, 0.0, 1.2247]
+    assert cosine_similarity_1d([1.0, 0.0], [1.0, 0.0]) == 1.0
+    assert cosine_similarity_1d([1.0, 0.0], [0.0, 1.0]) == 0.0
+
+    assert apply_bulk_discount(200.0, quantity=12, threshold_qty=10, discount_pct=15.0) == 170.0
+    assert apply_bulk_discount(200.0, quantity=5, threshold_qty=10, discount_pct=15.0) == 200.0
+
+
+def test_z_score_and_moving_average():
+    z = z_score_standardize([10.0, 20.0, 30.0])
+    assert z == [-1.2247, 0.0, 1.2247]
+    assert z_score_standardize([4.0, 4.0]) == [0.0, 0.0]
+    assert moving_average([2.0, 4.0, 6.0, 8.0, 10.0], window=3) == [4.0, 6.0, 8.0]
+
 
