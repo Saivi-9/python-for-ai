@@ -72,3 +72,22 @@ def apply_bulk_discount(
         return round(float(total) * (1.0 - discount_pct / 100.0), 2)
     return round(float(total), 2)
 
+
+def calculate_tax_and_grand_total(
+    subtotal: Union[int, float],
+    tax_rate_pct: float = 18.0,
+) -> Dict[str, float]:
+    """Compute sales tax amount and grand total for a non-negative subtotal and tax rate percentage."""
+    if subtotal < 0:
+        raise ValueError("subtotal must be non-negative")
+    if tax_rate_pct < 0.0 or tax_rate_pct > 100.0:
+        raise ValueError("tax_rate_pct must be between 0.0 and 100.0")
+    sub = round(float(subtotal), 2)
+    tax = round(sub * (tax_rate_pct / 100.0), 2)
+    return {
+        "subtotal": sub,
+        "tax_amount": tax,
+        "grand_total": round(sub + tax, 2),
+    }
+
+

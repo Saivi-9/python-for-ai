@@ -5,17 +5,26 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 
-from helpers import apply_bulk_discount, apply_discount, calculate_total, format_currency, summarize_sales_records
+from helpers import (
+    apply_bulk_discount,
+    apply_discount,
+    calculate_tax_and_grand_total,
+    calculate_total,
+    format_currency,
+    summarize_sales_records,
+)
 from leetcode import (
     analyze_student_grades,
     cosine_similarity_1d,
     filter_negative_numbers,
     find_largest_without_max,
     max_customer_wealth,
+    mean_absolute_error,
     min_max_normalize,
     moving_average,
     multiply,
     running_sum_1d,
+    softmax_1d,
     two_sum_indices,
     z_score_standardize,
 )
@@ -78,5 +87,17 @@ def test_z_score_and_moving_average():
     assert z == [-1.2247, 0.0, 1.2247]
     assert z_score_standardize([4.0, 4.0]) == [0.0, 0.0]
     assert moving_average([2.0, 4.0, 6.0, 8.0, 10.0], window=3) == [4.0, 6.0, 8.0]
+
+
+def test_softmax_mae_and_tax():
+    probs = softmax_1d([1.0, 1.0, 1.0, 1.0])
+    assert probs == [0.25, 0.25, 0.25, 0.25]
+    assert mean_absolute_error([10.0, 20.0, 30.0], [12.0, 19.0, 27.0]) == 2.0
+
+    tax_info = calculate_tax_and_grand_total(200.0, tax_rate_pct=18.0)
+    assert tax_info["subtotal"] == 200.0
+    assert tax_info["tax_amount"] == 36.0
+    assert tax_info["grand_total"] == 236.0
+
 
 
