@@ -134,6 +134,25 @@ def moving_average(values: List[float], window: int) -> List[float]:
     return out
 
 
+def softmax_1d(logits: List[float]) -> List[float]:
+    """Compute numerically stable softmax probabilities over a 1D logit vector."""
+    if not logits:
+        return []
+    max_logit = max(logits)
+    exps = [math.exp(x - max_logit) for x in logits]
+    denom = sum(exps)
+    return [round(v / denom, 4) for v in exps]
+
+
+def mean_absolute_error(y_true: List[float], y_pred: List[float]) -> float:
+    """Compute Mean Absolute Error (MAE) between two equal-length numeric prediction vectors."""
+    if len(y_true) != len(y_pred) or not y_true:
+        raise ValueError("y_true and y_pred must be non-empty and of equal length")
+    total_err = sum(abs(t - p) for t, p in zip(y_true, y_pred))
+    return round(total_err / len(y_true), 4)
+
+
+
 
 
 if __name__ == "__main__":
