@@ -8,6 +8,7 @@ sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 from helpers import (
     apply_bulk_discount,
     apply_discount,
+    calculate_profit_margin,
     calculate_tax_and_grand_total,
     calculate_total,
     format_currency,
@@ -23,7 +24,9 @@ from leetcode import (
     min_max_normalize,
     moving_average,
     multiply,
+    root_mean_squared_error,
     running_sum_1d,
+    sigmoid_1d,
     softmax_1d,
     two_sum_indices,
     z_score_standardize,
@@ -98,6 +101,15 @@ def test_softmax_mae_and_tax():
     assert tax_info["subtotal"] == 200.0
     assert tax_info["tax_amount"] == 36.0
     assert tax_info["grand_total"] == 236.0
+
+
+def test_rmse_sigmoid_and_profit_margin():
+    assert root_mean_squared_error([10.0, 20.0, 30.0], [10.0, 23.0, 34.0]) == 2.8868
+    assert sigmoid_1d([0.0]) == [0.5]
+    margin = calculate_profit_margin(500.0, 350.0)
+    assert margin["net_profit"] == 150.0
+    assert margin["margin_pct"] == 30.0
+
 
 
 
