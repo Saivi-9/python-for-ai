@@ -91,3 +91,23 @@ def calculate_tax_and_grand_total(
     }
 
 
+def calculate_profit_margin(
+    revenue: Union[int, float],
+    cost: Union[int, float],
+) -> Dict[str, float]:
+    """Compute net profit and gross profit margin percentage for non-negative revenue and cost."""
+    if revenue < 0 or cost < 0:
+        raise ValueError("revenue and cost must be non-negative")
+    rev = round(float(revenue), 2)
+    cst = round(float(cost), 2)
+    net_profit = round(rev - cst, 2)
+    margin_pct = round((net_profit / rev) * 100.0, 2) if rev > 0 else 0.0
+    return {
+        "revenue": rev,
+        "cost": cst,
+        "net_profit": net_profit,
+        "margin_pct": margin_pct,
+    }
+
+
+

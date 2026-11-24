@@ -152,6 +152,20 @@ def mean_absolute_error(y_true: List[float], y_pred: List[float]) -> float:
     return round(total_err / len(y_true), 4)
 
 
+def root_mean_squared_error(y_true: List[float], y_pred: List[float]) -> float:
+    """Compute Root Mean Squared Error (RMSE) between two equal-length numeric vectors."""
+    if len(y_true) != len(y_pred) or not y_true:
+        raise ValueError("y_true and y_pred must be non-empty and of equal length")
+    mse = sum((t - p) ** 2 for t, p in zip(y_true, y_pred)) / len(y_true)
+    return round(math.sqrt(mse), 4)
+
+
+def sigmoid_1d(values: List[float]) -> List[float]:
+    """Apply the logistic sigmoid activation function 1 / (1 + exp(-x)) element-wise."""
+    return [round(1.0 / (1.0 + math.exp(-x)), 4) for x in values]
+
+
+
 
 
 
