@@ -110,4 +110,26 @@ def calculate_profit_margin(
     }
 
 
+def calculate_return_on_investment(
+    gain_from_investment: Union[int, float],
+    cost_of_investment: Union[int, float],
+) -> Dict[str, float]:
+    """Compute net return and Return on Investment (ROI) percentage for a positive investment cost."""
+    if cost_of_investment <= 0:
+        raise ValueError("cost_of_investment must be positive")
+    if gain_from_investment < 0:
+        raise ValueError("gain_from_investment must be non-negative")
+    gain = round(float(gain_from_investment), 2)
+    cost = round(float(cost_of_investment), 2)
+    net_return = round(gain - cost, 2)
+    roi_pct = round((net_return / cost) * 100.0, 2)
+    return {
+        "gain": gain,
+        "cost": cost,
+        "net_return": net_return,
+        "roi_pct": roi_pct,
+    }
+
+
+
 

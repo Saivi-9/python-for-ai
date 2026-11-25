@@ -9,6 +9,7 @@ from helpers import (
     apply_bulk_discount,
     apply_discount,
     calculate_profit_margin,
+    calculate_return_on_investment,
     calculate_tax_and_grand_total,
     calculate_total,
     format_currency,
@@ -17,6 +18,7 @@ from helpers import (
 from leetcode import (
     analyze_student_grades,
     cosine_similarity_1d,
+    dot_product_1d,
     filter_negative_numbers,
     find_largest_without_max,
     max_customer_wealth,
@@ -24,6 +26,7 @@ from leetcode import (
     min_max_normalize,
     moving_average,
     multiply,
+    relu_1d,
     root_mean_squared_error,
     running_sum_1d,
     sigmoid_1d,
@@ -109,6 +112,15 @@ def test_rmse_sigmoid_and_profit_margin():
     margin = calculate_profit_margin(500.0, 350.0)
     assert margin["net_profit"] == 150.0
     assert margin["margin_pct"] == 30.0
+
+
+def test_relu_dot_product_and_roi():
+    assert relu_1d([-3.5, 0.0, 2.25, -0.1, 7.0]) == [0.0, 0.0, 2.25, 0.0, 7.0]
+    assert dot_product_1d([1.5, 2.0, 3.0], [4.0, 0.5, 2.0]) == 13.0
+    roi = calculate_return_on_investment(1500.0, 1200.0)
+    assert roi["net_return"] == 300.0
+    assert roi["roi_pct"] == 25.0
+
 
 
 
