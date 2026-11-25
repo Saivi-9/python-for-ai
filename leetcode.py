@@ -165,6 +165,19 @@ def sigmoid_1d(values: List[float]) -> List[float]:
     return [round(1.0 / (1.0 + math.exp(-x)), 4) for x in values]
 
 
+def relu_1d(values: List[float]) -> List[float]:
+    """Apply the Rectified Linear Unit (ReLU) activation max(0.0, x) element-wise."""
+    return [round(max(0.0, float(x)), 4) for x in values]
+
+
+def dot_product_1d(vec_a: List[float], vec_b: List[float]) -> float:
+    """Compute the scalar dot product between two equal-length 1D vectors."""
+    if len(vec_a) != len(vec_b) or not vec_a:
+        raise ValueError("vec_a and vec_b must be non-empty and of equal length")
+    return round(sum(float(a) * float(b) for a, b in zip(vec_a, vec_b)), 4)
+
+
+
 
 
 
