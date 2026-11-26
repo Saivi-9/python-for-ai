@@ -131,5 +131,17 @@ def calculate_return_on_investment(
     }
 
 
+def calculate_compound_annual_growth_rate(
+    beginning_value: Union[int, float],
+    ending_value: Union[int, float],
+    years: Union[int, float],
+) -> float:
+    """Compute Compound Annual Growth Rate (CAGR) as a percentage over a positive number of years."""
+    if beginning_value <= 0 or ending_value < 0 or years <= 0:
+        raise ValueError("beginning_value and years must be positive, and ending_value non-negative")
+    cagr = ((float(ending_value) / float(beginning_value)) ** (1.0 / float(years))) - 1.0
+    return round(cagr * 100.0, 2)
+
+
 
 
