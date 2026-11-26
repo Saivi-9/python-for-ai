@@ -177,6 +177,21 @@ def dot_product_1d(vec_a: List[float], vec_b: List[float]) -> float:
     return round(sum(float(a) * float(b) for a, b in zip(vec_a, vec_b)), 4)
 
 
+def euclidean_distance_1d(vec_a: List[float], vec_b: List[float]) -> float:
+    """Compute the L2 Euclidean distance between two equal-length 1D numeric vectors."""
+    if len(vec_a) != len(vec_b) or not vec_a:
+        raise ValueError("vec_a and vec_b must be non-empty and of equal length")
+    sq_sum = sum((float(a) - float(b)) ** 2 for a, b in zip(vec_a, vec_b))
+    return round(math.sqrt(sq_sum), 4)
+
+
+def leaky_relu_1d(values: List[float], alpha: float = 0.01) -> List[float]:
+    """Apply the Leaky ReLU activation function element-wise with negative slope alpha."""
+    if alpha < 0.0:
+        raise ValueError("alpha must be non-negative")
+    return [round(float(x) if float(x) >= 0.0 else alpha * float(x), 4) for x in values]
+
+
 
 
 

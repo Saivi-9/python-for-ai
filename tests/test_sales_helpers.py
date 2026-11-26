@@ -8,6 +8,7 @@ sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 from helpers import (
     apply_bulk_discount,
     apply_discount,
+    calculate_compound_annual_growth_rate,
     calculate_profit_margin,
     calculate_return_on_investment,
     calculate_tax_and_grand_total,
@@ -19,8 +20,10 @@ from leetcode import (
     analyze_student_grades,
     cosine_similarity_1d,
     dot_product_1d,
+    euclidean_distance_1d,
     filter_negative_numbers,
     find_largest_without_max,
+    leaky_relu_1d,
     max_customer_wealth,
     mean_absolute_error,
     min_max_normalize,
@@ -120,6 +123,12 @@ def test_relu_dot_product_and_roi():
     roi = calculate_return_on_investment(1500.0, 1200.0)
     assert roi["net_return"] == 300.0
     assert roi["roi_pct"] == 25.0
+
+
+def test_euclidean_distance_leaky_relu_and_cagr():
+    assert euclidean_distance_1d([0.0, 0.0], [3.0, 4.0]) == 5.0
+    assert leaky_relu_1d([-10.0, 0.0, 4.5], alpha=0.1) == [-1.0, 0.0, 4.5]
+    assert calculate_compound_annual_growth_rate(1000.0, 1331.0, 3) == 10.0
 
 
 
