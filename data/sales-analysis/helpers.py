@@ -143,5 +143,22 @@ def calculate_compound_annual_growth_rate(
     return round(cagr * 100.0, 2)
 
 
+def calculate_break_even_units(
+    fixed_costs: Union[int, float],
+    unit_price: Union[int, float],
+    unit_variable_cost: Union[int, float],
+) -> int:
+    """Compute ceiling break-even unit volume given fixed costs, unit price, and unit variable cost."""
+    if fixed_costs < 0 or unit_price <= 0 or unit_variable_cost < 0:
+        raise ValueError("fixed_costs and unit_variable_cost must be non-negative and unit_price positive")
+    contribution_margin = float(unit_price) - float(unit_variable_cost)
+    if contribution_margin <= 0:
+        raise ValueError("unit_price must exceed unit_variable_cost")
+    raw_units = float(fixed_costs) / contribution_margin
+    whole_units = int(raw_units)
+    return whole_units if raw_units == whole_units else whole_units + 1
+
+
+
 
 
