@@ -192,6 +192,19 @@ def leaky_relu_1d(values: List[float], alpha: float = 0.01) -> List[float]:
     return [round(float(x) if float(x) >= 0.0 else alpha * float(x), 4) for x in values]
 
 
+def manhattan_distance_1d(vec_a: List[float], vec_b: List[float]) -> float:
+    """Compute the L1 Manhattan distance between two equal-length 1D numeric vectors."""
+    if len(vec_a) != len(vec_b) or not vec_a:
+        raise ValueError("vec_a and vec_b must be non-empty and of equal length")
+    return round(sum(abs(float(a) - float(b)) for a, b in zip(vec_a, vec_b)), 4)
+
+
+def tanh_1d(values: List[float]) -> List[float]:
+    """Apply the hyperbolic tangent tanh(x) activation function element-wise."""
+    return [round(math.tanh(float(x)), 4) for x in values]
+
+
+
 
 
 

@@ -8,6 +8,7 @@ sys.path.insert(0, str(ROOT_DIR / "data" / "sales-analysis"))
 from helpers import (
     apply_bulk_discount,
     apply_discount,
+    calculate_break_even_units,
     calculate_compound_annual_growth_rate,
     calculate_profit_margin,
     calculate_return_on_investment,
@@ -24,6 +25,7 @@ from leetcode import (
     filter_negative_numbers,
     find_largest_without_max,
     leaky_relu_1d,
+    manhattan_distance_1d,
     max_customer_wealth,
     mean_absolute_error,
     min_max_normalize,
@@ -34,6 +36,7 @@ from leetcode import (
     running_sum_1d,
     sigmoid_1d,
     softmax_1d,
+    tanh_1d,
     two_sum_indices,
     z_score_standardize,
 )
@@ -129,6 +132,13 @@ def test_euclidean_distance_leaky_relu_and_cagr():
     assert euclidean_distance_1d([0.0, 0.0], [3.0, 4.0]) == 5.0
     assert leaky_relu_1d([-10.0, 0.0, 4.5], alpha=0.1) == [-1.0, 0.0, 4.5]
     assert calculate_compound_annual_growth_rate(1000.0, 1331.0, 3) == 10.0
+
+
+def test_manhattan_distance_tanh_and_break_even():
+    assert manhattan_distance_1d([1.0, 2.0, 3.0], [4.0, 0.0, 5.0]) == 7.0
+    assert tanh_1d([0.0]) == [0.0]
+    assert calculate_break_even_units(1000.0, unit_price=50.0, unit_variable_cost=30.0) == 50
+
 
 
 
